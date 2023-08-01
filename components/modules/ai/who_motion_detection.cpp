@@ -28,9 +28,11 @@ static void task_process_handler(void *arg)
             {
                 if (xQueueReceive(xQueueFrameI, &(frame2), portMAX_DELAY))
                 {
+                    printf(".\n");
                     uint32_t moving_point_number = dl::image::get_moving_point_number((uint16_t *)frame1->buf, (uint16_t *)frame2->buf, frame1->height, frame1->width, 8, 15);
                     if (moving_point_number > 50)
                     {
+                        printf("Something moved!\n");
                         ESP_LOGI(TAG, "Something moved!");
                         dl::image::draw_filled_rectangle((uint16_t *)frame2->buf, frame2->height, frame2->width, 0, 0, 20, 20);
                         is_moved = true;
